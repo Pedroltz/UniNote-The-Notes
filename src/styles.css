@@ -1,1 +1,50 @@
-/* You can add global styles to this file, and also import other style files */
+/* src/styles.css */
+
+/* Definição da fonte Inter */
+@font-face {
+  font-family: 'Inter';
+  src: url('assets/fonts/Inter-4.0/Inter.ttc') format('truetype');
+}
+
+/* Aplicar a fonte globalmente */
+html, body {
+  height: 100%;
+  margin: 0;
+  *{
+    font-family: 'Inter', Roboto, "Helvetica Neue", sans-serif; /* Aplica a fonte Inter */
+  }
+}
+
+/* Estilo para o backdrop do diálogo personalizado */
+.custom-dialog-backdrop {
+  background: rgba(0, 0, 0, 0.5) !important; /* Fundo semitransparente */
+}
+
+/* Estilo personalizado para o container do diálogo */
+.custom-dialog-panel .mat-dialog-container  {
+  border-radius: 8px;
+  background-color: #424242; /* Cor de fundo mais escura, similar à sidebar */
+  padding: 20px; /* Espaçamento interno */
+}
+
+/* Estilização específica para os campos de formulário dentro do diálogo */
+.custom-dialog-panel .mat-form-field-wrapper,
+.custom-dialog-panel .mat-form-field-infix {
+  padding: 10px; /* Espaçamento interno */
+}
+
+.custom-dialog-panel .mat-form-field-infix input {
+  height: 40px; /* Aumenta a altura do input */
+  font-size: 16px; /* Aumenta o tamanho da fonte */
+  padding: 10px; /* Espaçamento interno */
+  box-sizing: border-box; /* Inclui o padding no tamanho total */
+}
+
+/* Variáveis de cores (mantidas conforme sua configuração) */
+:root {
+  --color01: #3384b3;
+  --color02: #4e9dc6;
+  --color03: #6ab5d9;
+  --color04: #85ceec;
+  --color05: #a0e6ff;
+}

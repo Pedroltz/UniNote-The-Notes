@@ -1,0 +1,21 @@
+/* src/app/components/new-document-dialog/new-document-dialog.component.css */
+
+.full-width {
+  width: 100%;
+}
+
+.dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 10px; /* Espaçamento acima dos botões */
+}
+
+h2 {
+  margin-bottom: 10px; /* Espaçamento abaixo do título */
+  font-size: 20px; /* Tamanho da fonte do título */
+}
+
+mat-form-field {
+  width: 100%;
+  margin-bottom: 0; /* Remove margem inferior */
+}

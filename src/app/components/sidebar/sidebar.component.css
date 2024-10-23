@@ -1,0 +1,56 @@
+/* src/app/components/sidebar/sidebar.component.css */
+
+/* Remover bordas arredondadas do sidebar */
+.mat-sidenav {
+  border-radius: 0;
+}
+
+/* Estilo para o botão "Meu Drive" */
+.drive-button {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding-left: 15px; /* Alinhamento ajustado para 15px */
+}
+
+.drive-button .sidebar-icon {
+  margin-right: 5px; /* Espaçamento de 2 pixels entre o ícone e o texto */
+}
+
+.drive-button .menu-text {
+  /* Estilos opcionais para o texto */
+}
+
+/* Estilos gerais para os nós da árvore */
+.mat-tree-node {
+  cursor: pointer;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding-left: 30px; /* Indentação ajustada para 15px */
+}
+
+.menu-item .sidebar-icon {
+  margin-right: 2px; /* Espaçamento de 2 pixels entre o ícone e o texto */
+}
+
+.menu-text {
+  /* Estilos opcionais para o texto */
+}
+
+/* Estilo para nós com filhos */
+.menu-item.has-children {
+  padding-left: 15px; /* Indentação de 15px */
+}
+
+.menu-item.has-children button[mat-icon-button][matTreeNodeToggle] {
+  margin-right: 5px; /* Espaçamento ajustado para alinhar o botão de toggle */
+}
+
+.menu-item button[mat-icon-button][disabled] {
+  display: none; /* Oculta o botão de toggle em nós sem filhos */
+}
+
+/* Estilos adicionais, se necessário */

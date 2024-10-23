@@ -1,0 +1,62 @@
+<!-- src/app/components/folder-view/folder-view.component.html -->
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav mode="side" [(opened)]="sidebarOpened" (closed)="onSidebarClosed()" class="custom-sidenav">
+    <app-sidebar (folderSelected)="onFolderSelected()"></app-sidebar>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
+
+    <div class="content">
+      <div class="button-group">
+        <button mat-raised-button color="primary" (click)="openNewFolderDialog()">
+          Nova Pasta
+        </button>
+        <button mat-raised-button color="accent" (click)="createNewDocument()">
+          Novo Documento
+        </button>
+      </div>
+
+      <div class="folder-list">
+        <div
+          *ngFor="let folder of currentFolder?.children"
+          class="folder-item"
+          (click)="openFolder(folder.id)"
+          cdkDrag
+          (cdkDragMoved)="onDrag($event)"
+          (cdkDragEnded)="onDragEnd()"
+        >
+          <fa-icon [icon]="'folder'" class="custom-icon"></fa-icon>
+          <span [style.font-size.px]="textSize">{{ folder.name }}</span>
+        </div>
+      </div>
+
+      <div
+        class="document-list"
+        cdkDropList
+        id="documentsList"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div
+          *ngFor="let doc of currentFolder?.documents"
+          class="document-item"
+          cdkDrag
+          [cdkDragData]="doc"
+          (cdkDragMoved)="onDrag($event)"
+          (cdkDragEnded)="onDragEnd()"
+          (dblclick)="openDocument(doc.id)"
+        >
+          <fa-icon [icon]="'file-alt'" class="custom-icon"></fa-icon>
+          <span [style.font-size.px]="textSize">{{ doc.name }}</span>
+        </div>
+      </div>
+
+      <!-- Elemento de destino para detecção de colisão -->
+      <div #targetItem class="target-item">
+        <!-- Conteúdo do item de destino -->
+        <p>Área de Destino</p>
+      </div>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

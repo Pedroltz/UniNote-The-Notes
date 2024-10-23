@@ -1,0 +1,67 @@
+/* src/app/components/folder-view/folder-view.component.css */
+
+.sidenav-container {
+  height: 100%;
+}
+
+.custom-sidenav {
+  width: 200px; /* Largura menor do sidebar */
+  transition: box-shadow 0.3s ease;
+}
+
+/* Adicionar sombra quando o sidebar está aberto */
+.mat-sidenav-opened.custom-sidenav {
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+}
+
+.content {
+  padding: 20px;
+}
+
+/* Agrupamento dos botões com espaçamento */
+.button-group {
+  display: flex;
+  gap: 10px; /* Espaçamento de 10px entre os botões */
+  margin-bottom: 20px; /* Espaçamento abaixo dos botões */
+}
+
+.folder-list, .document-list {
+  margin-top: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.folder-item, .document-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+  background-color: #fff;
+  transition: background-color 0.3s;
+}
+
+.folder-item:hover, .document-item:hover {
+  background-color: #f0f0f0;
+}
+
+/* Estilo para os ícones personalizados */
+.custom-icon {
+  font-size: 48px; /* Define o tamanho desejado */
+  color: #424242; /* Define a cor do ícone (ajuste conforme necessário) */
+  margin-right: 10px; /* Espaço entre o ícone e o texto */
+}
+
+/* Estilos para o elemento de destino */
+.target-item {
+  width: 200px;
+  height: 200px;
+  border: 2px dashed #555;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  background-color: #f9f9f9;
+}

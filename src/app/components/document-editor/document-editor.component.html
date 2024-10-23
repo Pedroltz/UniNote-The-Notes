@@ -1,0 +1,28 @@
+<!-- src/app/components/document-editor/document-editor.component.html -->
+
+<div class="container">
+    <app-navbar [sidebarOpened]="sidebarOpened" (toggleSidebar)="toggleSidebar()"></app-navbar>
+    <mat-sidenav-container class="sidenav-container">
+      <mat-sidenav
+        #sidenav
+        mode="over"
+        [(opened)]="sidebarOpened"
+        (closed)="onSidebarClosed()"
+      >
+        <app-sidebar (folderSelected)="onFolderSelected()"></app-sidebar>
+      </mat-sidenav>
+      <mat-sidenav-content>
+        <div class="editor-toolbar">
+          <button mat-button (click)="saveDocument()">Salvar</button>
+        </div>
+        <div class="editor-content">
+          <div class="page-container">
+            <div class="page">
+              <textarea [(ngModel)]="document.content"></textarea>
+            </div>
+          </div>
+        </div>
+      </mat-sidenav-content>
+    </mat-sidenav-container>
+  </div>
+  

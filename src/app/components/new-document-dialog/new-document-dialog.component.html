@@ -1,0 +1,18 @@
+<!-- src/app/components/new-document-dialog/new-document-dialog.component.html -->
+
+<h2>Novo Documento</h2>
+<mat-form-field appearance="outline" class="full-width">
+  <mat-label>Nome do Documento</mat-label>
+  <input matInput [(ngModel)]="documentName" name="documentName" required />
+</mat-form-field>
+<div class="dialog-actions">
+  <button mat-button [mat-dialog-close]="null">Cancelar</button>
+  <button
+    mat-button
+    color="primary"
+    [mat-dialog-close]="documentName"
+    [disabled]="!documentName"
+  >
+    Criar
+  </button>
+</div>
