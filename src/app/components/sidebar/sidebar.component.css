@@ -10,47 +10,60 @@
   width: 100%;
   display: flex;
   align-items: center;
-  padding-left: 15px; /* Alinhamento ajustado para 15px */
+  padding: 10px 15px; /* Padding ajustado para um layout mais compacto */
 }
 
 .drive-button .sidebar-icon {
-  margin-right: 5px; /* Espaçamento de 2 pixels entre o ícone e o texto */
-}
-
-.drive-button .menu-text {
-  /* Estilos opcionais para o texto */
-}
-
-/* Estilos gerais para os nós da árvore */
-.mat-tree-node {
-  cursor: pointer;
+  margin-right: 8px; /* Espaçamento aumentado para melhor visibilidade */
 }
 
 .menu-item {
   display: flex;
   align-items: center;
-  padding-left: 30px; /* Indentação ajustada para 15px */
+  padding: 5px 0; /* Reduzido o padding vertical para itens mais próximos */
 }
 
 .menu-item .sidebar-icon {
-  margin-right: 2px; /* Espaçamento de 2 pixels entre o ícone e o texto */
+  margin-right: 8px; /* Espaçamento aumentado para melhor visibilidade */
 }
 
 .menu-text {
+  flex: 1;
   /* Estilos opcionais para o texto */
 }
 
 /* Estilo para nós com filhos */
-.menu-item.has-children {
-  padding-left: 15px; /* Indentação de 15px */
-}
-
 .menu-item.has-children button[mat-icon-button][matTreeNodeToggle] {
-  margin-right: 5px; /* Espaçamento ajustado para alinhar o botão de toggle */
+  margin-right: 8px; /* Espaçamento ajustado para alinhar o botão de toggle */
 }
 
+/* Ocultar o botão de toggle em nós sem filhos */
 .menu-item button[mat-icon-button][disabled] {
-  display: none; /* Oculta o botão de toggle em nós sem filhos */
+  display: none;
 }
 
-/* Estilos adicionais, se necessário */
+/* Adicionar transição suave para a indentação */
+.mat-tree-node {
+  transition: padding-left 0.2s ease-in-out;
+}
+
+/* Estilo para links ativos ou hover */
+.menu-item:hover {
+  background-color: rgba(0, 0, 0, 0.04); /* Sutil destaque ao passar o mouse */
+  cursor: pointer;
+}
+
+/* Responsividade */
+@media (max-width: 600px) {
+  .menu-item {
+    padding: 3px 0;
+  }
+
+  .sidebar-icon {
+    margin-right: 5px;
+  }
+
+  .drive-button {
+    padding: 8px 10px;
+  }
+}

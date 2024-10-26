@@ -5,11 +5,12 @@ import { Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
 import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
-import { MatIconModule } from '@angular/material/icon'; // Import MatIconModule
+import { MatIconModule } from '@angular/material/icon';
 import { FlatTreeControl } from '@angular/cdk/tree';
 import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
+import { CommonModule } from '@angular/common'; // Import necessário
 
 interface FolderNode {
   name: string;
@@ -27,7 +28,13 @@ interface ExampleFlatNode {
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [MatListModule, MatTreeModule, MatIconModule, FontAwesomeModule],
+  imports: [
+    CommonModule,         // Adicionado
+    MatListModule,
+    MatTreeModule,
+    MatIconModule,
+    FontAwesomeModule
+  ],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.css']
 })
@@ -57,7 +64,7 @@ export class SidebarComponent implements OnInit {
 
     this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
 
-    // Add the icon to the library
+    // Adicionar o ícone à biblioteca
     library.addIcons(faFolder);
   }
 
@@ -65,7 +72,7 @@ export class SidebarComponent implements OnInit {
     const rootFolder = this.folderService.getFolderById('root');
     if (rootFolder) {
       const data = this.buildFolderTree(rootFolder);
-      this.dataSource.data = data.children || [];
+      this.dataSource.data = [data]; // Incluir "Meus Arquivos" como raiz
     }
   }
 

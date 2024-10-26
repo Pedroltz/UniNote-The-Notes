@@ -1,32 +1,35 @@
-<!-- src/app/components/sidebar/sidebar.component.html -->
+<div class="side-menu">
+  
+  <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
+    <!-- Nó sem filhos -->
+    <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
+      <li 
+        class="mat-tree-node menu-item" 
+        [ngStyle]="{'padding-left.px': node.level === 0 ? 10 : (node.level * 15)}">
+        <button mat-icon-button disabled></button>
+        <fa-icon [icon]="'folder'" class="sidebar-icon"></fa-icon>
+        <span class="menu-text" (click)="navigateToFolder(node.id)">
+          {{ node.name }}
+        </span>
+      </li>
+    </mat-tree-node>
 
-<mat-nav-list>
-  <mat-list-item (click)="navigateToFolder('root')" class="drive-button">
-    <fa-icon [icon]="'folder'" class="sidebar-icon"></fa-icon>
-    <span class="menu-text">Meus Arquivos</span>
-  </mat-list-item>
-</mat-nav-list>
+    <!-- Nó com filhos -->
+    <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle>
+      <li 
+        class="mat-tree-node menu-item has-children" 
+        [ngStyle]="{'padding-left.px': node.level === 0 ? 10 : (node.level * 15)}">
+        <button mat-icon-button matTreeNodeToggle>
+          <mat-icon>
+            {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
+          </mat-icon>
+        </button>
+        <fa-icon [icon]="'folder'" class="sidebar-icon"></fa-icon>
+        <span class="menu-text" (click)="navigateToFolder(node.id)">
+          {{ node.name }}
+        </span>
+      </li>
+    </mat-tree-node>
+  </mat-tree>
 
-<mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-  <!-- Nó sem filhos -->
-  <mat-tree-node *matTreeNodeDef="let node" matTreeNodeToggle>
-    <li class="mat-tree-node menu-item">
-      <button mat-icon-button disabled></button>
-      <fa-icon [icon]="'folder'" class="sidebar-icon"></fa-icon>
-      <span class="menu-text" (click)="navigateToFolder(node.id)">{{ node.name }}</span>
-    </li>
-  </mat-tree-node>
-
-  <!-- Nó com filhos -->
-  <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodeToggle>
-    <li class="mat-tree-node menu-item has-children">
-      <button mat-icon-button matTreeNodeToggle>
-        <mat-icon>
-          {{ treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right' }}
-        </mat-icon>
-      </button>
-      <fa-icon [icon]="'folder'" class="sidebar-icon"></fa-icon>
-      <span class="menu-text" (click)="navigateToFolder(node.id)">{{ node.name }}</span>
-    </li>
-  </mat-tree-node>
-</mat-tree>
+</div>

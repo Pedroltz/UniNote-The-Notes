@@ -1,18 +1,15 @@
 <!-- src/app/components/new-folder-dialog/new-folder-dialog.component.html -->
 
-<h2>Nova Pasta</h2>
-<mat-form-field appearance="outline" class="full-width">
-  <mat-label>Nome da Pasta</mat-label>
-  <input matInput [(ngModel)]="folderName" name="folderName" required />
-</mat-form-field>
-<div class="dialog-actions">
-  <button mat-button [mat-dialog-close]="null">Cancelar</button>
-  <button
-    mat-button
-    color="primary"
-    [mat-dialog-close]="folderName"
-    [disabled]="!folderName"
-  >
-    Criar
-  </button>
+<div class="form">
+  <h2>Nova Pasta</h2>
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Nome da Pasta</mat-label>
+    <input matInput [(ngModel)]="folderName" name="folderName" required />
+  </mat-form-field>
+  <div class="dialog-actions">
+    <button mat-button [mat-dialog-close]="null">Cancelar</button>
+    <button mat-button color="primary" [mat-dialog-close]="folderName" [disabled]="!folderName">
+      Criar
+    </button>
+  </div>
 </div>

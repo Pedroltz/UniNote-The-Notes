@@ -10,10 +10,10 @@
 
     <div class="content">
       <div class="button-group">
-        <button mat-raised-button color="primary" (click)="openNewFolderDialog()">
+        <button mat-raised-button class="primaryButton" (click)="openNewFolderDialog()">
           Nova Pasta
         </button>
-        <button mat-raised-button color="accent" (click)="createNewDocument()">
+        <button mat-raised-button color="primary" class="primaryButton" (click)="createNewDocument()">
           Novo Documento
         </button>
       </div>
@@ -50,12 +50,6 @@
           <fa-icon [icon]="'file-alt'" class="custom-icon"></fa-icon>
           <span [style.font-size.px]="textSize">{{ doc.name }}</span>
         </div>
-      </div>
-
-      <!-- Elemento de destino para detecção de colisão -->
-      <div #targetItem class="target-item">
-        <!-- Conteúdo do item de destino -->
-        <p>Área de Destino</p>
       </div>
     </div>
   </mat-sidenav-content>
