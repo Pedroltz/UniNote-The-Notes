@@ -3,6 +3,7 @@
 .mat-toolbar {
     display: flex;
     align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .title {
@@ -13,4 +14,12 @@
   .spacer {
     flex: 1 1 auto;
   }
-  
+
+  .logo-Blue {
+    color: var(--color01);
+}
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
