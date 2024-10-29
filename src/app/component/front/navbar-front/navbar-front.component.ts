@@ -3,7 +3,7 @@ import { ButtonComponent } from "../button/button.component";
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'app-navbar-front',
   standalone: true,
   imports: [ButtonComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

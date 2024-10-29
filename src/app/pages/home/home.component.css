@@ -1,0 +1,35 @@
+
+.home-body{
+    background-color: rgb(106, 177, 239);
+    flex-direction: row;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+h2{
+    font-weight: bold;
+}
+
+p{
+    line-height: 25px;
+    max-width: 700px;
+    font-size: 20px;
+    letter-spacing: 2px;
+}
+
+.home-left{
+    width: 50%;
+    height: 100%;
+    padding: 100px;
+    box-sizing: border-box;
+}
+
+.home-right{
+    width: 50%;
+    height: 100%;
+    padding: 100px;
+    box-sizing: border-box;
+}
