@@ -3,9 +3,6 @@
 
 UniNote é uma aplicação web desenvolvida com Angular para gerenciar notas acadêmicas de forma simples e intuitiva.
 
-## Tutorial de contrução:
-https://app.affine.pro/workspace/a111c3e5-b9e8-40eb-98da-bd859520941c/O85-uaHkeItUTegwaibqI
-
 ## Sumário
 
 - [Descrição](#descrição)
