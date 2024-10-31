@@ -1,71 +1,168 @@
 /* src/app/components/folder-view/folder-view.component.css */
 
 .sidenav-container {
-  height: 100%;
-}
-
-.custom-sidenav {
-  width: 200px; /* Largura menor do sidebar */
-  transition: box-shadow 0.3s ease;
-}
-
-/* Adicionar sombra quando o sidebar está aberto */
-.mat-sidenav-opened.custom-sidenav {
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+  height: 100vh;
 }
 
 .content {
-  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  /* Ajuste conforme a altura do navbar */
+  padding: 16px;
+  box-sizing: border-box;
 }
 
-/* Agrupamento dos botões com espaçamento */
 .button-group {
   display: flex;
-  gap: 10px; /* Espaçamento de 10px entre os botões */
-  margin-bottom: 20px; /* Espaçamento abaixo dos botões */
+  gap: 16px;
+  margin-bottom: 16px;
 }
 
-.folder-list, .document-list {
-  margin-top: 20px;
+.folder-list {
+  flex: 1;
   display: flex;
   flex-wrap: wrap;
-  gap: 10px;
+  gap: 16px;
 }
 
-.folder-item, .document-item {
+.folder-item,
+.document-item {
   display: flex;
   align-items: center;
-  padding: 10px;
+  justify-content: space-between;
+  /* Adicionado para espaçar o conteúdo */
+  padding: 8px;
+  cursor: pointer;
   border: 1px solid #ccc;
   border-radius: 4px;
-  cursor: pointer;
-  background-color: #fff;
-  transition: background-color 0.3s;
-}
-
-.folder-item:hover, .document-item:hover {
-  background-color: #f0f0f0;
-}
-
-/* Estilo para os ícones personalizados */
-.custom-icon {
-  font-size: 48px; /* Define o tamanho desejado */
-  color: #424242; /* Define a cor do ícone (ajuste conforme necessário) */
-  margin-right: 10px; /* Espaço entre o ícone e o texto */
-}
-
-/* Estilos para o elemento de destino */
-.target-item {
+  background-color: #f9f9f9;
   width: 200px;
-  height: 200px;
-  border: 2px dashed #555;
+}
+
+.folder-content,
+.document-content {
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin-top: 20px;
-  background-color: #f9f9f9;
 }
 
-.primaryButton{
-  color: var(--color01) !important;
+.folder-item:hover,
+.document-item:hover {
+  background-color: #e0e0e0;
+}
+
+.custom-icon {
+  margin-right: 8px;
+  font-size: 32px;
+  /* Aumenta o tamanho do ícone */
+}
+
+.document-container {
+  height: 80%;
+  margin-top: 16px;
+  border-top: 1px solid #ccc;
+  padding-top: 16px;
+}
+
+.document-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.document-item span {
+  /* Assegure-se de que o texto não está sendo escondido */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.target-item {
+  /* Estilos para o elemento de destino, se necessário */
+}
+
+h3 {
+  margin-bottom: 8px;
+}
+
+.optionsMenu {
+  position: absolute;
+  width: auto;
+  height: 100px;
+  left: 102%;
+  top: 0%;
+  padding: 10px;
+  border-radius: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 5px;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+
+  button {
+    background-color: transparent;
+    width: 90%;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    border: 0;
+    min-width: fit-content;
+    transition: all .1s;
+
+    &:hover {
+      background-color: lightgray;
+      border-radius: 6px;
+    }
+
+    span {
+      text-align: start;
+    }
+  }
+
+  .moveToMenu {
+    position: absolute;
+    width: 90%;
+    height: 105px;
+    left: 103%;
+    top: 0%;
+    padding: 10px;
+    border-radius: 4px;
+    display: flex;
+    /* justify-content: center; */
+    align-items: flex-start;
+    gap: 5px;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    list-style: none;
+
+    ul {
+      margin: 0;
+      padding: 0;
+      overflow: scroll;
+      height: 100%;
+      width: 100%;
+
+      li {
+        box-sizing: border-box;
+        height: 30px;
+        background-color: transparent;
+        width: 100%;
+        padding: 10px;
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        border: 0;
+        transition: all .1s;
+    
+        &:hover {
+          background-color: lightgray;
+          border-radius: 6px;
+        }
+      }
+    }
+  }
 }

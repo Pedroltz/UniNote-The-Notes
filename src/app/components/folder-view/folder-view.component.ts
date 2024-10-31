@@ -19,6 +19,9 @@ import { faFolder, faFileAlt } from '@fortawesome/free-solid-svg-icons';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { NewFolderDialogComponent } from '../new-folder-dialog/new-folder-dialog.component';
 import { NewDocumentDialogComponent } from '../new-document-dialog/new-document-dialog.component';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-folder-view',
@@ -33,6 +36,9 @@ import { NewDocumentDialogComponent } from '../new-document-dialog/new-document-
     DragDropModule,
     FontAwesomeModule,
     MatDialogModule,
+    MatMenuModule,
+    MatIconModule,
+    MatSnackBarModule,
   ],
   templateUrl: './folder-view.component.html',
   styleUrls: ['./folder-view.component.css'],
@@ -41,7 +47,13 @@ export class FolderViewComponent implements OnInit, OnDestroy {
   @ViewChild('sidenav') sidenav!: MatSidenav;
   @ViewChild('targetItem') targetItem!: ElementRef;
 
-  currentFolder!: Folder;
+  // Start with currentFolder as Folder | undefined
+  currentFolder: Folder = {
+    id: '',
+    name: '',
+    children: [],
+    documents: [{ id: 'ewhw76b', name: 'test', content: '', folderId: 'root' }],
+  };
   folderDropListIds: string[] = [];
   sidebarOpened = false;
 
@@ -50,29 +62,32 @@ export class FolderViewComponent implements OnInit, OnDestroy {
   private folderSubscription!: Subscription;
   private routeSubscription!: Subscription;
 
+  selectedFolder: Folder | undefined;
+  selectedDocument: Document | undefined;
+
+  folderListVisible: boolean = false;
+  optionsMenuVisible: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private folderService: FolderService,
     private documentService: DocumentService,
     private library: FaIconLibrary,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {
-    // Adicionar os ícones à biblioteca
     library.addIcons(faFolder, faFileAlt);
   }
 
   ngOnInit(): void {
-    // Assinar para mudanças na rota
     this.routeSubscription = this.route.paramMap.subscribe((params) => {
       const folderId = params.get('id')!;
       this.updateCurrentFolder(folderId);
     });
 
-    // Assinar para atualizações das pastas
     this.folderSubscription = this.folderService.folders$.subscribe(() => {
       if (this.currentFolder) {
-        // Atualizar a pasta atual
         this.updateCurrentFolder(this.currentFolder.id);
       }
     });
@@ -87,7 +102,7 @@ export class FolderViewComponent implements OnInit, OnDestroy {
     }
   }
 
-  private updateCurrentFolder(folderId: string) {
+  private updateCurrentFolder(folderId: string): void {
     const folder = this.folderService.getFolderById(folderId);
     if (!folder) {
       this.router.navigate(['/folder', 'root']);
@@ -95,52 +110,68 @@ export class FolderViewComponent implements OnInit, OnDestroy {
     }
 
     this.currentFolder = folder;
-    // Atualizar a lista de IDs das pastas para arrastar e soltar
-    this.folderDropListIds = this.currentFolder.children.map((folder) => folder.id);
+    console.log(`Pasta atual:`, this.currentFolder); // Log para depuração
+
+    // Use non-null assertion operator since we know currentFolder is not undefined here
+    this.folderDropListIds = this.currentFolder!.children.map((folder) => folder.id);
     this.folderDropListIds.push('documentsList');
   }
 
-  openFolder(id: string) {
+  openFolder(id: string): void {
     this.router.navigate(['/folder', id]);
   }
 
-  openDocument(id: string) {
-    // Navega para a rota do documento
+  openDocument(id: string): void {
     this.router.navigate(['/document', id]);
   }
 
-  openNewFolderDialog() {
+  openNewFolderDialog(): void {
+    if (!this.currentFolder) return;
     const dialogRef = this.dialog.open(NewFolderDialogComponent, {
-      width: '350px', // Aumenta a largura para acomodar o campo maior
+      width: '350px',
       backdropClass: 'custom-dialog-backdrop',
-      panelClass: 'custom-dialog-panel', // Classe personalizada para estilos
+      panelClass: 'custom-dialog-panel',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.currentFolder) {
-        this.folderService.createFolder(result, this.currentFolder.id);
+        const newFolder = this.folderService.createFolder(result, this.currentFolder.id);
+        if (newFolder) {
+          console.log(
+            `Pasta "${newFolder.name}" criada com sucesso na pasta "${this.currentFolder.name}".`
+          );
+        }
       }
     });
   }
 
-  createNewDocument() {
+  createNewDocument(): void {
+    if (!this.currentFolder) return;
     const dialogRef = this.dialog.open(NewDocumentDialogComponent, {
-      width: '350px', // Aumenta a largura para acomodar o campo maior
+      width: '350px',
       backdropClass: 'custom-dialog-backdrop',
-      panelClass: 'custom-dialog-panel', // Classe personalizada para estilos
+      panelClass: 'custom-dialog-panel',
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result && this.currentFolder) {
-        const doc = this.documentService.createDocument(result, this.currentFolder.id);
-        this.openDocument(doc.id);
+        const newDocument = this.documentService.createDocument(
+          result,
+          this.currentFolder.id,
+        );
+        if (newDocument) {
+          console.log(
+            `Documento "${newDocument.name}" criado com sucesso na pasta "${this.currentFolder.name}".`
+          );
+          console.log(this.currentFolder.documents, "\n", this.currentFolder.children);
+        }
       }
     });
   }
 
   onDrag(event: CdkDragMove): void {
     const draggedElement = event.source.element.nativeElement;
-    if (!this.targetItem) return; // Garantir que targetItem existe
+    if (!this.targetItem) return;
     const targetElement = this.targetItem.nativeElement;
 
     const isColliding = this.isColliding(draggedElement, targetElement);
@@ -167,56 +198,120 @@ export class FolderViewComponent implements OnInit, OnDestroy {
   }
 
   /**
-   * Método drop para manipular a lógica de drag-and-drop
+   * Método para manipular o evento de drop em pastas.
    * @param event CdkDragDrop<any>
    */
-  drop(event: CdkDragDrop<any>): void {
-    const previousContainer = event.previousContainer;
-    const currentContainer = event.container;
+  dropFolder(event: CdkDragDrop<any>): void {
+    if (!this.currentFolder) return;
+
     const draggedDocument: Document = event.item.data;
+    const targetFolderId: string = event.container.data;
 
-    console.log('Evento de Drop:', event);
+    console.log(`Tentando mover o documento "${draggedDocument.name}" para a pasta com ID "${targetFolderId}"`);
 
-    // Se o container de origem e destino forem os mesmos, não faz nada
-    if (previousContainer === currentContainer) {
-      return;
-    }
-
-    // Verifica se o container de destino tem um ID que corresponde a uma pasta
-    const targetFolderId = currentContainer.id; // Assumindo que o ID do container é o ID da pasta
-
-    // Verifica se o ID do container de destino é 'documentsList' ou um ID de pasta válido
-    if (targetFolderId === 'documentsList') {
-      // Caso 'documentsList' seja uma lista global ou uma área específica
-      // Implemente a lógica conforme necessário
-      console.warn('Documento solto em uma área inválida: documentsList');
-      return;
-    }
-
-    // Verifica se a pasta de destino existe
-    const targetFolder = this.folderService.getFolderById(targetFolderId);
-    if (!targetFolder) {
-      console.error(`Pasta de destino com ID ${targetFolderId} não encontrada.`);
+    // Verifique se o documento já está na pasta de destino
+    if (draggedDocument.folderId === targetFolderId) {
+      console.warn('O documento já está na pasta de destino.');
       return;
     }
 
     // Mover o documento para a pasta de destino
-    this.documentService.moveDocumentToFolder(draggedDocument.id, targetFolderId);
+    const moved: boolean = this.documentService.moveDocumentToFolder(draggedDocument.id, targetFolderId);
+    if (moved) {
+      console.log(`Documento "${draggedDocument.name}" movido com sucesso para a pasta com ID "${targetFolderId}".`);
+    } else {
+      console.error(`Falha ao mover o documento "${draggedDocument.name}" para a pasta com ID "${targetFolderId}".`);
+    }
 
     // Atualizar a pasta atual para refletir a mudança
     this.updateCurrentFolder(this.currentFolder.id);
   }
 
-  toggleSidebar() {
+  drop(event: CdkDragDrop<any>): void {
+    console.log('Documento solto na lista global.');
+  }
+
+  toggleSidebar(): void {
     this.sidebarOpened = !this.sidebarOpened;
   }
 
-  onSidebarClosed() {
+  onSidebarClosed(): void {
     this.sidebarOpened = false;
   }
 
-  onFolderSelected() {
+  onFolderSelected(): void {
     this.sidenav.close();
     this.sidebarOpened = false;
+  }
+
+  /**
+   * Define a pasta selecionada ao abrir o menu.
+   * @param folder Folder
+   */
+  setSelectedFolder(folder: Folder): void {
+    this.selectedFolder = folder;
+  }
+
+  /**
+   * Define o documento selecionado ao abrir o menu.
+   * @param doc Document
+   */
+  setSelectedDocument(doc: Document): void {
+    this.selectedDocument = doc;
+  }
+
+  /**
+   * Exclui a pasta selecionada após confirmação.
+   */
+  deleteSelectedFolder(): void {
+    if (!this.selectedFolder) return;
+    const folder = this.selectedFolder;
+    const confirmed = confirm(`Tem certeza de que deseja excluir a pasta "${folder.name}"?`);
+    if (confirmed) {
+      const deleted = this.folderService.deleteFolder(folder.id);
+      if (deleted && this.currentFolder) {
+        this.updateCurrentFolder(this.currentFolder.id);
+        this.snackBar.open(`Pasta "${folder.name}" excluída com sucesso.`, 'Fechar', {
+          duration: 3000,
+        });
+      } else {
+        this.snackBar.open(`Falha ao excluir a pasta "${folder.name}".`, 'Fechar', {
+          duration: 3000,
+        });
+      }
+    }
+  }
+
+  /**
+   * Exclui o documento selecionado após confirmação.
+   */
+  deleteSelectedDocument(): void {
+    if (!this.selectedDocument) return;
+    const doc = this.selectedDocument;
+    const confirmed = confirm(`Tem certeza de que deseja excluir o documento "${doc.name}"?`);
+    if (confirmed) {
+      const deleted = this.documentService.deleteDocument(doc.id);
+      if (deleted && this.currentFolder) {
+        this.updateCurrentFolder(this.currentFolder.id);
+        this.snackBar.open(`Documento "${doc.name}" excluído com sucesso.`, 'Fechar', {
+          duration: 3000,
+        });
+      } else {
+        this.snackBar.open(`Falha ao excluir o documento "${doc.name}".`, 'Fechar', {
+          duration: 3000,
+        });
+      }
+    }
+  }
+  toggleMoveFolderList(): void {
+    this.folderListVisible = !this.folderListVisible;
+  }
+  toggleOptionsMenuList(): void {
+    this.optionsMenuVisible = !this.optionsMenuVisible;
+  }
+  changeFolder(docId:string, folderId:string) {
+    this.documentService.moveDocumentToFolder(docId,folderId);
+    this.toggleMoveFolderList()
+    this.toggleOptionsMenuList()
   }
 }

@@ -41,7 +41,7 @@ export class MoveDocumentDialogComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.availableFolders = this.folderService.getAllFolders();
+    this.availableFolders = this.folderService.getFolders();
   }
 
   onMove(): void {

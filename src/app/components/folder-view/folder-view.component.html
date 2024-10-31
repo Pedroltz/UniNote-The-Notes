@@ -9,48 +9,103 @@
     <app-navbar (toggleSidebar)="toggleSidebar()"></app-navbar>
 
     <div class="content">
+      <!-- Botões para criar novas pastas e documentos -->
       <div class="button-group">
-        <button mat-raised-button class="primaryButton" (click)="openNewFolderDialog()">
+        <button mat-raised-button class="custom-new-folder-button" (click)="openNewFolderDialog()">
           Nova Pasta
         </button>
-        <button mat-raised-button color="primary" class="primaryButton" (click)="createNewDocument()">
+        <button mat-raised-button class="custom-new-document-button" (click)="createNewDocument()">
           Novo Documento
         </button>
       </div>
 
+      <!-- Lista de Pastas -->
       <div class="folder-list">
-        <div
-          *ngFor="let folder of currentFolder?.children"
-          class="folder-item"
-          (click)="openFolder(folder.id)"
-          cdkDrag
-          (cdkDragMoved)="onDrag($event)"
-          (cdkDragEnded)="onDragEnd()"
-        >
-          <fa-icon [icon]="'folder'" class="custom-icon"></fa-icon>
-          <span [style.font-size.px]="textSize">{{ folder.name }}</span>
+        <div *ngFor="let folder of currentFolder?.children" class="folder-item" cdkDropList
+          [cdkDropListData]="folder.id" (cdkDropListDropped)="dropFolder($event)">
+          <div class="folder-content" (click)="openFolder(folder.id)">
+            <fa-icon [icon]="'folder'" class="custom-icon fa-2x"></fa-icon>
+            <span [style.font-size.px]="textSize">{{ folder.name }}</span>
+          </div>
+          <!-- Botão de Menu -->
+          <button mat-icon-button [matMenuTriggerFor]="folderMenu" (click)="setSelectedFolder(folder)">
+            <mat-icon>more_vert</mat-icon>
+          </button>
         </div>
       </div>
 
-      <div
-        class="document-list"
-        cdkDropList
-        id="documentsList"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div
-          *ngFor="let doc of currentFolder?.documents"
-          class="document-item"
-          cdkDrag
-          [cdkDragData]="doc"
-          (cdkDragMoved)="onDrag($event)"
-          (cdkDragEnded)="onDragEnd()"
-          (dblclick)="openDocument(doc.id)"
-        >
-          <fa-icon [icon]="'file-alt'" class="custom-icon"></fa-icon>
-          <span [style.font-size.px]="textSize">{{ doc.name }}</span>
+      <!-- Lista de Documentos -->
+      <div class="document-container">
+        <h3>Documentos</h3>
+        <div *ngIf="currentFolder.documents.length > 0; else noDocuments" class="document-list" cdkDropList
+          id="documentsList" (cdkDropListDropped)="drop($event)">
+          <!-- cdkDrag [cdkDragData]="doc"
+            (cdkDragMoved)="onDrag($event)" (cdkDragEnded)="onDragEnd()" -->
+          <div *ngFor="let doc of currentFolder?.documents" class="document-item" style="position:relative;">
+            <div class="document-content" (dblclick)="openDocument(doc.id)">
+              <fa-icon [icon]="'file-alt'" class="custom-icon fa-2x"></fa-icon>
+              <!-- Exibindo o nome do documento -->
+              <span [style.font-size.px]="textSize">{{ doc.name }}</span>
+            </div>
+            <!-- Botão de Menu -->
+            <!-- <button mat-icon-button [matMenuTriggerFor]="documentMenu" (click)="setSelectedDocument(doc)"> -->
+            <button mat-icon-button (click)="setSelectedDocument(doc);toggleOptionsMenuList();">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <div class="optionsMenu" *ngIf="optionsMenuVisible">
+              <button (click)="deleteSelectedDocument()">
+                <mat-icon>delete</mat-icon>
+                <span>Excluir</span>
+              </button>
+              <button (click)="toggleMoveFolderList()">
+                <mat-icon>folder</mat-icon>
+                <span>Mover</span>
+              </button>
+              <div *ngIf="folderListVisible" class="moveToMenu">
+                <ul>
+                  <li *ngFor="let folder of currentFolder?.children"
+                    (click)="changeFolder(doc.id, folder.id)"
+                  >{{ folder.name }}</li>
+                  <li *ngIf="doc.folderId != 'root'"
+                    (click)="changeFolder(doc.id, 'root')"
+                  >( root )</li>
+                </ul>
+              </div>
+            </div>
+          </div>
         </div>
+
+        <ng-template #noDocuments>
+          <p>Nenhum documento encontrado nesta pasta.</p>
+        </ng-template>
       </div>
+
+      <!-- Menus -->
+      <!-- Menu de Opções para Pastas -->
+      <mat-menu #folderMenu="matMenu">
+        <button mat-menu-item (click)="deleteSelectedFolder()">
+          <mat-icon>delete</mat-icon>
+          <span>Excluir Pasta</span>
+        </button>
+      </mat-menu>
+
+      <!-- Menu de Opções para Documentos -->
+      <!-- <mat-menu #documentMenu="matMenu">
+        <button mat-menu-item (click)="deleteSelectedDocument()">
+          <mat-icon>delete</mat-icon>
+          <span>Excluir Documento</span>
+        </button>
+        <button mat-menu-item (click)="toggleMoveFolderList()">
+          <mat-icon>folder</mat-icon>
+          <span>Mover Para</span>
+        </button>
+        <ul *ngIf="folderListVisible">
+          <li>Pasta1</li>
+          <li>Pasta2</li>
+          <li>Pasta3</li>
+        </ul>
+      </mat-menu> -->
+
     </div>
   </mat-sidenav-content>
 </mat-sidenav-container>
