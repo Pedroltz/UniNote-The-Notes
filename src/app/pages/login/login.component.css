@@ -1,74 +1,176 @@
 @font-face {
-    font-family: 'Inter';
-    src: url("../../../assets/fonts/Inter-4.0/Inter.ttc") format("truetype"); }
-  
-  * {
-    font-family: 'Inter', sans-serif; }
-  
+  font-family: 'Inter';
+  src: url("../../../assets/fonts/Inter-4.0/Inter.ttc") format("truetype");
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-container {
+  display: flex;
+  height: 100vh;
+  width: 100%;
+}
+
+.login-left,
+.login-right {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.login-left {
+  flex: 0.4;
+  flex-direction: column;
+  background-color: #f5f5f5;
+}
+
+.login-left h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-left p {
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.login-left form {
+  width: 100%;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+}
+
+.login-left form label {
+  margin-top: 1.2rem;
+  text-align: left;
+}
+
+.login-left form input {
+  /* Removido height fixo para evitar campos finos */
+  /* height: 25px; */
+  font-size: 16px;
+  padding: 0.75rem 0.5rem; /* Aumentado o padding para melhor altura */
+  margin-top: 0.3rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+  width: 100%; /* Garante que o input ocupe toda a largura disponível */
+}
+
+.login-left .btn {
+  padding: 0.75rem;
+  margin-left: 0px;
+  margin-top: 35px;
+  margin-bottom: 10px;
+  border-radius: 15px;
+  cursor: pointer;
+  border: 2px solid var(--color03);
+  background-color: var(--color03);
+  color: white;
+  transition: all 0.3s ease;
+}
+
+.login-left .btn-signin:hover {
+  background-color: white;
+  color: black;
+  border-color: var(--color03);
+}
+
+.login-right {
+  flex: 0.6;
+  background-color: white;
+  background-image: url(../../../assets/wallpaperBlue.jpg);
+  background-size: cover;
+  background-position: center;
+}
+
+.login-info {
+  text-align: center;
+}
+
+.login-info h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.login-info p {
+  margin-bottom: 1rem;
+}
+
+.login-info img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+/* Estilos responsivos para mobile */
+@media screen and (max-width: 768px) {
+  /* Ajustes na .login-container */
   .login-container {
-    display: flex;
-    height: 100vh; }
-  
-  .login-left, .login-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 2rem; }
-  
-  .login-left {
-    flex: 0.4;
     flex-direction: column;
-    background-color: #f5f5f5; }
-    .login-left h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem; }
-    .login-left p {
-      margin-bottom: 1rem; }
-    .login-left form {
-      width: 100%;
-      max-width: 300px;
-      display: flex;
-      flex-direction: column; }
-      .login-left form label {
-        margin-top: 1.2rem; }
-      .login-left form input {
-        height: 25px;
-        font-size: 16px;
-        padding: 0.5rem;
-        margin-top: 0.3rem;
-        border: 1px solid #ccc;
-        border-radius: 12px; }
-    .login-left .btn {
-      padding: 0.75rem;
-      margin-left: 0px;
-      margin-top: 35px;
-      margin-bottom: 10px;
-      border-radius: 15px;
-      cursor: pointer;
-      border: 2px solid var(--color03);
-      background-color: var(--color03);
-      color: white;
-      transition: all 0.3s ease; }
-    .login-left .btn-signin:hover {
-      background-color: white;
-      color: black;
-      border-color: var(--color03); }
-  
+    height: 100vh; /* Mantém a altura total para centralização vertical */
+    background-color: #f5f5f5; /* Cor de fundo uniforme */
+    padding: 1rem;
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+  }
+
+  /* Remove a seção de imagem no mobile */
   .login-right {
-    flex: 0.6;
-    background-color: white;
-    background-image: url(../../../assets/wallpaperBlue.jpg); }
+    display: none;
+  }
+
+  /* Centraliza o formulário de login e define a largura para 75% */
+  .login-left {
+    flex: none;
+    width: 100%;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Centraliza horizontalmente */
+    justify-content: center; /* Centraliza verticalmente */
+    background-color: #f5f5f5; /* Garante a cor de fundo uniforme */
+  }
   
-  .login-info {
-    text-align: center; }
-    .login-info h3 {
-      font-size: 1.5rem;
-      margin-bottom: 1rem; }
-    .login-info p {
-      margin-bottom: 1rem; }
-    .login-info img {
-      max-width: 100%;
-      height: auto;
-      border: 1px solid #ccc;
-      border-radius: 4px; }
-  
+  .login-left form {
+    width: 75%;
+    max-width: 300px; /* Mantém o max-width para evitar distorções */
+    margin: 0 auto; /* Centraliza o formulário */
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* Centraliza textos e ajusta tamanhos de fontes para melhor legibilidade no mobile */
+  .login-left h2 {
+    font-size: 1.5rem;
+    text-align: center; /* Centraliza o texto */
+  }
+  .login-left p,
+  .login-left form label {
+    font-size: 1rem;
+    text-align: center; /* Opcional: centraliza os textos */
+  }
+
+  /* Mantém os inputs com largura adequada e padding */
+  .login-left form input {
+    width: 100%; /* Garante que os inputs ocupem a largura total do formulário */
+    /* Removido o text-align: center para evitar texto centralizado dentro dos inputs */
+    padding: 0.75rem 0.5rem; /* Aumentado o padding para melhor altura */
+    font-size: 16px; /* Mantém o tamanho da fonte */
+  }
+
+  /* Ajusta os botões para melhor visualização no mobile */
+  .login-left .btn {
+    width: 100%;
+    max-width: none;
+  }
+}

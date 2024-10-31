@@ -8,7 +8,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   imports: [NavbarComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   templateUrl: './home.component.html',
-  styleUrl: './home.component.sass'
+  styleUrl: './home.component.css'
 })
 export class HomeComponent {
 

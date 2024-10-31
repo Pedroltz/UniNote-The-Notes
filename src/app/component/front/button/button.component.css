@@ -1,56 +1,55 @@
 .btn-signin {
     margin-right: 4px;
-    padding: 0.75rem;
-    border: none;
-    border-radius: 15px;
+    padding: 15px 30px; /* Ajuste do padding para combinar com o botão da home */
+    border: none; /* Remoção da borda para coincidir com o botão da home */
+    border-radius: 5px; /* Ajuste do border-radius para 5px */
     cursor: pointer;
-    border: 2.5px solid var(--color01);
-    background-color: var(--color01);
-    color: white;
+    background-color: #2b6cb0; /* Cor de fundo igual ao botão da home */
+    color: #fff; /* Cor do texto em branco */
     text-decoration: none;
     display: inline-block;
-    transition: all 0.3s ease;
+    font-weight: bold; /* Texto em negrito para combinar com o botão da home */
     position: relative;
     overflow: hidden;
-}
-
-.btn-signin:hover {
-    background-color: var(--color01);
-    border-color: var(--color02);
-    color: white;
+    transition: all 0.3s ease; /* Mantém as transições suaves */
+  }
+  
+  .btn-signin:hover {
+    background-color: #2c5282; /* Cor de fundo ao passar o mouse */
+    color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transform: scale(1.05);
-}
-
-.btn-signin:hover span {
+    transform: scale(1.05); /* Mantém o efeito de zoom */
+  }
+  
+  .btn-signin:hover span {
     transition: all 1s;
-    color: white;
+    color: #fff;
     position: relative;
-}
-
-.btn-signin:hover:before {
+  }
+  
+  .btn-signin:hover:before {
     position: absolute;
     display: block;
     content: "";
     width: 0%;
     height: 100%;
-    border-color: var(--color01);
-    background: var(--color01);
+    background: #2b6cb0; /* Cor de fundo para o efeito de preenchimento */
     top: 0;
     left: 0;
     animation-name: fill;
     animation-duration: 1s;
     animation-fill-mode: forwards;
-}
-
-@keyframes fill {
+  }
+  
+  @keyframes fill {
     0% {
-        width: 0%;
+      width: 0%;
     }
     80% {
-        width: 100%;
+      width: 100%;
     }
     100% {
-        width: 100%;
+      width: 100%;
     }
-}
+  }
+  

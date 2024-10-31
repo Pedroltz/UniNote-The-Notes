@@ -1,15 +1,35 @@
-
 <header class="navbar">
     <div class="logo">
-        <span class="logo-White">Uni</span><span class="logo-Blue">Note</span>
+      <span class="logo-White">Uni</span><span class="logo-Blue">Note</span>
     </div>
+    <!-- Ícone do menu para dispositivos móveis -->
+    <input type="checkbox" id="menu-toggle" />
+    <label for="menu-toggle" class="menu-icon">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
     <nav class="nav-links">
-        <a href="home" class="nav-item">Home</a>
-        <a href="#" class="nav-item">Sobre</a>
-        <a href="#" class="nav-item">Mais</a>
+      <a href="home" class="nav-item">Home</a>
+      <a href="#" class="nav-item">Sobre</a>
+      <a href="#" class="nav-item">Mais</a>
     </nav>
     <div class="auth">
-        <app-button name="Entrar" [size]="16" href="login" [backgroundColor]="'var(--color02)'" [borderColor]="'var(--color02)'"/>
-        <app-button name="Registrar" [size]="16" [backgroundColor]="'white'" href="register" [color]="'black'" [borderColor]="'var(--color01)'"/>
+      <app-button
+        name="Entrar"
+        [size]="16"
+        href="login"
+        [backgroundColor]="'var(--color02)'"
+        [borderColor]="'var(--color02)'"
+      ></app-button>
+      <app-button
+        name="Registrar"
+        [size]="16"
+        [backgroundColor]="'white'"
+        href="register"
+        [color]="'black'"
+        [borderColor]="'var(--color01)'"
+      ></app-button>
     </div>
-</header>
+  </header>
+  
