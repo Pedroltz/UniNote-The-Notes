@@ -16,10 +16,8 @@ UniNote é uma aplicação web desenvolvida com Angular para gerenciar notas aca
 **UniNote** permite que usuários armazenem, organizem e gerenciem suas anotações de aula e tarefas acadêmicas em um ambiente online. A aplicação foi projetada para facilitar o acesso e a consulta de informações acadêmicas em um único lugar.
 
 ### Funcionalidades
-- Cadastro de notas acadêmicas.
-- Organização de notas por disciplina.
-- Busca e filtro por título de nota.
-- [Outras funcionalidades futuras]
+- Cadastro de notas.
+- Organização de notas por pastas.
 
 ## Instalação
 
