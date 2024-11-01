@@ -4,14 +4,19 @@ import { Injectable } from '@angular/core';
 import { Document } from '../models/document.model';
 import { FolderService } from './folder.service';
 import { Folder } from '../models/folder.model';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root',
 })
 export class DocumentService {
   private documents: Document[] = [];
+  private API_URL: string = 'http://localhost:5023'
 
-  constructor(private folderService: FolderService) {}
+  constructor(
+    private folderService: FolderService,
+    private http: HttpClient
+  ) { }
 
   /**
    * Gera um ID único para um documento.
@@ -46,6 +51,7 @@ export class DocumentService {
 
     // Adiciona o documento à lista global de documentos
     this.documents.push(newDocument);
+    this.http.post(`${this.API_URL}/documents`, newDocument);
 
     // Adiciona o documento à pasta correspondente
     folder.documents.push(newDocument);
