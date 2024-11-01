@@ -86,7 +86,7 @@
 .login-right {
   flex: 0.6;
   background-color: white;
-  background-image: url(../../../assets/wallpaperBlue.jpg);
+  background-image: url(../../../assets/images/wallpaperBlue.jpg);
   background-size: cover;
   background-position: center;
 }
