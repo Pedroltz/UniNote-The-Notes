@@ -1,4 +1,3 @@
-/* Estilos Gerais */
 * {
     margin: 0;
     padding: 0;
@@ -21,7 +20,8 @@
   }
   
   .logo {
-    font-size: 24px;
+    padding-left: 20px;
+    font-size: 23px;
     font-weight: bold;
   }
   
@@ -29,7 +29,6 @@
     color: var(--color01);
   }
   
-  /* Ocultar o checkbox */
   #menu-toggle {
     display: none;
   }
@@ -67,61 +66,54 @@
     color: var(--color01);
   }
   
-  /* Auth Buttons */
   .auth {
     display: flex;
     align-items: center;
   }
   
-  /* --- Ajustes para Telas Maiores (Desktop) --- */
   @media (min-width: 769px) {
     .navbar {
-      padding: 8px 20px; /* Reduzimos o padding vertical para 8px e horizontal para 20px */
+      padding: 8px 20px; 
     }
   
     .logo {
-      font-size: 22px; /* Ajustamos o tamanho da fonte */
+      font-size: 22px; 
     }
   
     .nav-item {
-      margin: 0 10px; /* Ajustamos o espaçamento entre os itens */
-      font-size: 14px; /* Reduzimos o tamanho da fonte */
+      margin: 0 10px; 
+      font-size: 14px;
     }
   
     .menu-icon {
-      display: none; /* Mantemos o menu-icon oculto em telas maiores */
+      display: none;
     }
   }
   
-  /* Responsividade para Dispositivos Móveis */
   @media (max-width: 768px) {
-    /* A navbar permanece como estava originalmente */
     .navbar {
-      padding: 15px 30px; /* Padding original */
+      padding: 15px 30px;
     }
   
     .logo {
-      font-size: 24px; /* Tamanho da fonte original */
+      font-size: 24px; 
     }
   
-    /* Esconde os links e botões por padrão */
     .nav-links,
     .auth {
       display: none;
     }
   
-    /* Exibe o ícone do menu */
     .menu-icon {
       display: flex;
     }
   
-    /* Mostrar o menu quando o checkbox estiver marcado */
     #menu-toggle:checked ~ .menu-icon + .nav-links,
     #menu-toggle:checked ~ .menu-icon + .nav-links + .auth {
       display: flex;
       flex-direction: column;
       position: absolute;
-      top: 60px; /* Mantemos a posição original */
+      top: 60px;
       right: 0;
       background-color: #fff;
       width: 100%;
@@ -136,7 +128,7 @@
     .nav-item {
       margin: 10px 0;
       text-align: center;
-      font-size: 16px; /* Tamanho da fonte original */
+      font-size: 16px; 
     }
   
     .auth {
@@ -147,10 +139,9 @@
       margin-bottom: 10px;
     }
   
-    /* Animação do ícone do menu */
     #menu-toggle:checked + .menu-icon span:nth-child(1) {
       transform: rotate(45deg);
-      top: 8px; /* Mantemos os valores originais */
+      top: 8px; 
     }
   
     #menu-toggle:checked + .menu-icon span:nth-child(2) {
@@ -159,7 +150,7 @@
   
     #menu-toggle:checked + .menu-icon span:nth-child(3) {
       transform: rotate(-45deg);
-      top: -8px; /* Mantemos os valores originais */
+      top: -8px; 
     }
   }
   

@@ -54,14 +54,12 @@
 }
 
 .login-left form input {
-  /* Removido height fixo para evitar campos finos */
-  /* height: 25px; */
   font-size: 16px;
-  padding: 0.75rem 0.5rem; /* Aumentado o padding para melhor altura */
+  padding: 0.75rem 0.5rem;
   margin-top: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 12px;
-  width: 100%; /* Garante que o input ocupe toda a largura disponível */
+  width: 100%;
 }
 
 .login-left .btn {
@@ -111,24 +109,20 @@
   border-radius: 4px;
 }
 
-/* Estilos responsivos para mobile */
 @media screen and (max-width: 768px) {
-  /* Ajustes na .login-container */
   .login-container {
     flex-direction: column;
-    height: 100vh; /* Mantém a altura total para centralização vertical */
-    background-color: #f5f5f5; /* Cor de fundo uniforme */
+    height: 100vh;
+    background-color: #f5f5f5;
     padding: 1rem;
-    align-items: center; /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;
+    justify-content: center;
   }
 
-  /* Remove a seção de imagem no mobile */
   .login-right {
     display: none;
   }
 
-  /* Centraliza o formulário de login e define a largura para 75% */
   .login-left {
     flex: none;
     width: 100%;
@@ -136,39 +130,35 @@
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center; /* Centraliza horizontalmente */
-    justify-content: center; /* Centraliza verticalmente */
-    background-color: #f5f5f5; /* Garante a cor de fundo uniforme */
+    align-items: center;
+    justify-content: center;
+    background-color: #f5f5f5;
   }
   
   .login-left form {
     width: 75%;
-    max-width: 300px; /* Mantém o max-width para evitar distorções */
-    margin: 0 auto; /* Centraliza o formulário */
+    max-width: 300px;
+    margin: 0 auto;
     display: flex;
     flex-direction: column;
   }
 
-  /* Centraliza textos e ajusta tamanhos de fontes para melhor legibilidade no mobile */
   .login-left h2 {
     font-size: 1.5rem;
-    text-align: center; /* Centraliza o texto */
+    text-align: center;
   }
   .login-left p,
   .login-left form label {
     font-size: 1rem;
-    text-align: center; /* Opcional: centraliza os textos */
+    text-align: center;
   }
 
-  /* Mantém os inputs com largura adequada e padding */
   .login-left form input {
-    width: 100%; /* Garante que os inputs ocupem a largura total do formulário */
-    /* Removido o text-align: center para evitar texto centralizado dentro dos inputs */
-    padding: 0.75rem 0.5rem; /* Aumentado o padding para melhor altura */
-    font-size: 16px; /* Mantém o tamanho da fonte */
+    width: 100%;
+    padding: 0.75rem 0.5rem;
+    font-size: 16px;
   }
 
-  /* Ajusta os botões para melhor visualização no mobile */
   .login-left .btn {
     width: 100%;
     max-width: none;

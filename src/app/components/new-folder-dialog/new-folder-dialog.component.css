@@ -1,5 +1,3 @@
-/* src/app/components/new-folder-dialog/new-folder-dialog.component.css */
-
 .form {
   padding: 10px 15px;
   overflow: hidden;
@@ -18,11 +16,11 @@
 }
 
 h2 {
-  margin-bottom: 10px; /* Espaçamento abaixo do título */
-  font-size: 20px; /* Tamanho da fonte do título */
+  margin-bottom: 10px; 
+  font-size: 20px; 
 }
 
 mat-form-field {
   width: 100%;
-  margin-bottom: 0; /* Remove margem inferior */
+  margin-bottom: 0;
 }

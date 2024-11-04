@@ -1,11 +1,9 @@
-// src/app/components/new-folder-dialog/new-folder-dialog.component.ts
-
 import { Component } from '@angular/core';
 import { MatDialogModule } from '@angular/material/dialog';
 import { FormsModule } from '@angular/forms';
-import { MatFormFieldModule } from '@angular/material/form-field'; // Importação necessária
-import { MatInputModule } from '@angular/material/input'; // Importação necessária
-import { MatButtonModule } from '@angular/material/button'; // Importação necessária
+import { MatFormFieldModule } from '@angular/material/form-field'; 
+import { MatInputModule } from '@angular/material/input'; 
+import { MatButtonModule } from '@angular/material/button'; 
 
 @Component({
   selector: 'app-new-folder-dialog',

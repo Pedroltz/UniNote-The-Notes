@@ -1,5 +1,3 @@
-// src/app/components/new-document-dialog/new-document-dialog.component.ts
-
 import { Component } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
