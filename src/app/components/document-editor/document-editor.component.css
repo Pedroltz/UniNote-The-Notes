@@ -1,14 +1,10 @@
-/* src/app/components/document-editor/document-editor.component.css */
-
-/* Estilos para a barra de ferramentas do editor */
 .editor-toolbar {
     display: flex;
-    justify-content: flex-end; /* Alinha o conteúdo à direita */
+    justify-content: flex-end; 
     padding: 8px 16px;
     background-color: #f1f3f4;
   }
   
-  /* Estilos existentes */
   .editor-content {
     display: flex;
     justify-content: center;

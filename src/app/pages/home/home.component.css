@@ -1,5 +1,5 @@
-/* Estilos Gerais (mantidos como antes) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap');
+/* Importação de Fontes */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
 
 * {
   margin: 0;
@@ -10,11 +10,26 @@
 body {
   font-family: 'Inter', sans-serif;
   color: #333;
+  line-height: 1.6;
+  background-color: #ffffff;
 }
 
+/* Seções Gerais */
+main {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Ajusta o espaçamento das seções para evitar sobreposição com o Navbar fixo */
+section {
+  padding-top: 80px; /* Ajuste conforme a altura do seu Navbar */
+  margin-top: -80px; /* Mesma altura do padding-top */
+}
+
+/* Home Body */
 .home-body {
-  background-color: #f5f7fa;
-  padding: 50px 20px;
+  background-color: #f0f4f8;
+  padding: 80px 20px;
 }
 
 .content {
@@ -23,58 +38,146 @@ body {
   align-items: center;
   max-width: 1200px;
   margin: 0 auto;
-  gap: 50px;
+  gap: 60px;
 }
 
 .text-section {
   flex: 1;
 }
 
+.text-section h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  color: #2b6cb0;
+}
+
+.text-section p {
+  margin-bottom: 20px;
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.cta-button {
+  display: inline-block;
+  padding: 15px 40px;
+  background-color: #2b6cb0;
+  color: #fff;
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.cta-button:hover {
+  background-color: #1e4a7a;
+  transform: translateY(-3px);
+}
+
 .image-section {
   flex: 1;
   display: flex;
   justify-content: center;
+  margin: 50px;
 }
 
 .image-section img {
   max-width: 100%;
   height: auto;
-  border-radius: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(43, 108, 176, 0.2);
+  transition: transform 0.3s ease;
 }
 
+.image-section img:hover {
+  transform: scale(1.05);
+}
 
-h2 {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+/* Sobre a Equipe */
+.about-body {
+  padding: 50px 20px 150px;
+  background-color: #ffffff;
+  text-align: center;
+}
+
+.about-body h2 {
+  font-size: 2.8rem;
+  margin-bottom: 40px;
   color: #2b6cb0;
 }
 
-p {
-  line-height: 1.6;
-  margin-bottom: 15px;
+.about-content {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.team-member {
+  background-color: #f9fafb;
+  border-radius: 15px;
+  width: 280px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.team-member:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 15px 35px rgba(43, 108, 176, 0.2);
+}
+
+.team-member img {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 20px;
+  border: 4px solid #2b6cb0;
+}
+
+.team-member h3 {
+  font-size: 1.5rem;
+  color: #2b6cb0;
+  margin-bottom: 10px;
+}
+
+.member-function {
   font-size: 1rem;
+  color: #555;
 }
 
-.cta-button {
-  display: inline-block;
-  margin-top: 20px;
-  padding: 15px 30px;
-  background-color: #2b6cb0;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 5px;
-  font-weight: bold;
-  transition: background-color 0.3s ease;
+/* Sobre o Projeto */
+.about-project-body {
+  padding: 60px 20px;
+  background-color: #f0f4f8;
 }
 
-.cta-button:hover {
-  background-color: #2c5282;
+.about-project-container {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.about-project-container h2 {
+  font-size: 2.8rem;
+  margin-bottom: 30px;
+  color: #2b6cb0;
+  text-align: center;
+}
+
+.about-project-container p {
+  font-size: 1.1rem;
+  color: #555;
+  margin-bottom: 20px;
+  line-height: 1.8;
 }
 
 /* Responsividade */
-@media (max-width: 768px) {
+@media (max-width: 992px) {
   .content {
-    flex-direction: column-reverse;
+    flex-direction: column;
     text-align: center;
   }
 
@@ -82,59 +185,45 @@ p {
     margin-bottom: 30px;
   }
 
-  h2 {
+  .text-section h1 {
+    font-size: 2.5rem;
+  }
+
+  .text-section p {
+    font-size: 1rem;
+  }
+
+  .about-body h2,
+  .about-project-container h2 {
+    font-size: 2.5rem;
+  }
+
+  .team-member {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .text-section h1 {
     font-size: 2rem;
   }
 
-  p {
-    font-size: 0.95rem;
-  }
-}
-
-.about-body{
-  padding: 50px;
-  background-color: #fff;
-  font-size: 2.5rem;
-  color: #2b6cb0;
-  text-align: center;
-}
-
-.about-content{
-  justify-content: center;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin: 0 auto;
-  padding-top: 40px;
-}
-
-.team-member{
-  width: 300px;
-  color: #555;
-  border-radius: 20px;
-  background-color: #f0f0f0;
-  transition: transform 0.3s, box-shadow 0.3s;
-  &:hover{
-    transform: translateY(-10px);
-    box-shadow: 0px 10px 20px;
-  }
-
-  .member-function{
+  .cta-button {
+    padding: 12px 30px;
     font-size: 1rem;
-    color: #2b6cb0;
-    margin-top: 0px;
-    margin-bottom: 10px;
   }
 
-  img{
-    height: 200px;
-    width: 200px;
-    border-radius: 20px;
-    object-fit: cover;
-    margin-bottom: 20px;
+  .about-body h2,
+  .about-project-container h2 {
+    font-size: 2.2rem;
   }
-  h3{
-    font-size: 1.5rem;
-    margin-bottom: 0px;
+
+  .about-project-container p {
+    font-size: 1rem;
+  }
+
+  .team-member img {
+    width: 100px;
+    height: 100px;
   }
 }

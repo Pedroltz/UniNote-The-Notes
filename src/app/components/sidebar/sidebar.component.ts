@@ -1,16 +1,15 @@
-// src/app/components/sidebar/sidebar.component.ts
-
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { FolderService } from '../../services/folder.service';
+import { CommonModule } from '@angular/common';
 import { MatListModule } from '@angular/material/list';
 import { MatTreeModule } from '@angular/material/tree';
 import { MatIconModule } from '@angular/material/icon';
 import { FlatTreeControl } from '@angular/cdk/tree';
-import { MatTreeFlatDataSource, MatTreeFlattener } from '@angular/material/tree';
 import { FaIconLibrary, FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { faFolder } from '@fortawesome/free-solid-svg-icons';
-import { CommonModule } from '@angular/common'; // Import necessário
+import { BehaviorSubject, Observable } from 'rxjs';
+import { CollectionViewer, DataSource } from '@angular/cdk/collections';
 
 interface FolderNode {
   name: string;
@@ -18,85 +17,95 @@ interface FolderNode {
   children?: FolderNode[];
 }
 
-interface ExampleFlatNode {
+interface FlatFolderNode {
   expandable: boolean;
   name: string;
   level: number;
   id: string;
 }
 
+class CustomTreeDataSource implements DataSource<FlatFolderNode> {
+  private dataChange = new BehaviorSubject<FlatFolderNode[]>([]);
+
+  constructor(private treeControl: FlatTreeControl<FlatFolderNode>) {}
+
+  connect(collectionViewer: CollectionViewer): Observable<FlatFolderNode[]> {
+    return this.dataChange.asObservable();
+  }
+
+  disconnect(collectionViewer: CollectionViewer): void {
+    this.dataChange.complete();
+  }
+
+  setData(data: FlatFolderNode[]): void {
+    this.dataChange.next(data);
+  }
+}
+
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
-    CommonModule,         // Adicionado
+    CommonModule,
     MatListModule,
     MatTreeModule,
     MatIconModule,
     FontAwesomeModule
   ],
   templateUrl: './sidebar.component.html',
-  styleUrls: ['./sidebar.component.css']
+  styleUrls: ['./sidebar.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SidebarComponent implements OnInit {
   @Output() folderSelected = new EventEmitter<void>();
 
-  treeControl = new FlatTreeControl<ExampleFlatNode>(
+  readonly treeControl = new FlatTreeControl<FlatFolderNode>(
     node => node.level,
     node => node.expandable
   );
 
-  treeFlattener: MatTreeFlattener<FolderNode, ExampleFlatNode>;
-
-  dataSource: MatTreeFlatDataSource<FolderNode, ExampleFlatNode>;
+  readonly dataSource = new CustomTreeDataSource(this.treeControl);
 
   constructor(
-    private router: Router,
-    private folderService: FolderService,
-    private library: FaIconLibrary
+    private readonly router: Router,
+    private readonly folderService: FolderService,
+    private readonly library: FaIconLibrary
   ) {
-    this.treeFlattener = new MatTreeFlattener(
-      this.transformer,
-      node => node.level,
-      node => node.expandable,
-      node => node.children
-    );
-
-    this.dataSource = new MatTreeFlatDataSource(this.treeControl, this.treeFlattener);
-
-    // Adicionar o ícone à biblioteca
-    library.addIcons(faFolder);
+    this.library.addIcons(faFolder);
   }
 
   ngOnInit(): void {
     const rootFolder = this.folderService.getFolderById('root');
     if (rootFolder) {
       const data = this.buildFolderTree(rootFolder);
-      this.dataSource.data = [data]; // Incluir "Meus Arquivos" como raiz
+      this.dataSource.setData(data);
     }
   }
 
-  transformer = (node: FolderNode, level: number) => {
-    return {
-      expandable: !!node.children && node.children.length > 0,
-      name: node.name,
-      level: level,
-      id: node.id
-    };
-  };
+  private transformer = (node: FolderNode, level: number): FlatFolderNode => ({
+    expandable: !!node.children && node.children.length > 0,
+    name: node.name,
+    level,
+    id: node.id
+  });
 
-  hasChild = (_: number, node: ExampleFlatNode) => node.expandable;
+  hasChild = (_: number, node: FlatFolderNode): boolean => node.expandable;
 
-  navigateToFolder(id: string) {
+  navigateToFolder(id: string): void {
     this.router.navigate(['/folder', id]);
     this.folderSelected.emit();
   }
 
-  private buildFolderTree(folder: any): FolderNode {
-    return {
-      name: folder.name,
-      id: folder.id,
-      children: folder.children.map((child: any) => this.buildFolderTree(child))
-    };
+  private buildFolderTree(folder: FolderNode, level: number = 0): FlatFolderNode[] {
+    const flatNode = this.transformer(folder, level);
+    let nodes: FlatFolderNode[] = [flatNode];
+
+    if (folder.children) {
+      folder.children.forEach(child => {
+        nodes = nodes.concat(this.buildFolderTree(child, level + 1));
+      });
+    }
+
+    return nodes;
   }
 }

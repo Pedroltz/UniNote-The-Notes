@@ -1,5 +1,3 @@
-// src/app/components/document-editor/document-editor.component.ts
-
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DocumentService } from '../../services/document.service';
@@ -54,12 +52,9 @@ export class DocumentEditorComponent implements OnInit {
   }
 
   saveDocument() {
-    // Como estamos armazenando os dados em memória, não é necessário salvar explicitamente.
-    // Após "salvar", redirecionamos para a pasta que contém o documento.
     this.router.navigate(['/folder', this.document.folderId]);
   }
 
-  // Métodos para controlar a sidebar
   toggleSidebar() {
     this.sidebarOpened = !this.sidebarOpened;
   }
@@ -67,8 +62,7 @@ export class DocumentEditorComponent implements OnInit {
   onSidebarClosed() {
     this.sidebarOpened = false;
   }
-
-  // Método para fechar a sidebar quando uma pasta é selecionada
+  
   onFolderSelected() {
     this.sidenav.close();
     this.sidebarOpened = false;

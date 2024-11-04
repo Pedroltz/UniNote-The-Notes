@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ButtonComponent } from "../button/button.component";
-import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @Component({
   selector: 'app-navbar-front',
@@ -10,7 +10,7 @@ import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
   templateUrl: './navbar-front.component.html',
   styleUrls: ['./navbar-front.component.sass'] 
 })
-export class NavbarComponent {
+export class NavbarFrontComponent {
   isMenuOpen: boolean = false;
 
   toggleMenu(): void {

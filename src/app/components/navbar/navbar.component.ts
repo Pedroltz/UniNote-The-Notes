@@ -1,5 +1,3 @@
-// src/app/components/navbar/navbar.component.ts
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatIconModule } from '@angular/material/icon';

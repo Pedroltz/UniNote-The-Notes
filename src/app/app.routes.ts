@@ -1,4 +1,4 @@
-import { Routes } from '@angular/router';
+import { Routes, ExtraOptions } from '@angular/router';
 import { provideRouter } from '@angular/router';
 import { FolderViewComponent } from './components/folder-view/folder-view.component';
 import { DocumentEditorComponent } from './components/document-editor/document-editor.component';

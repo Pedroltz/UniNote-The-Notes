@@ -52,6 +52,10 @@ html, body {
   --color08: #2c5282;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
